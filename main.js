@@ -2,23 +2,47 @@
 var titulo = document.querySelector(".titulo");
 titulo.textContent = "Priih Nutrição";
 
-var paciente = document.querySelector("#primeiro-paciente");
-var tdPeso = paciente.querySelector(".info-peso");
-tdPeso.textContent = "80";
+
+
+var pacientes = document.querySelectorAll(".paciente");
+
+for(var i=0; i<5; i++){
+  console.log(pacientes[1]);
+  
+var tdPeso = pacientes[i].querySelector(".info-peso");
+
 var peso = tdPeso.textContent;
 
 
 
-var tdAltura = paciente.querySelector(".info-altura");
+var tdAltura = pacientes[i].querySelector(".info-altura");
 tdAltura.textContent = "80";
 var altura = tdAltura.textContent;
 
 
-var tdImc = paciente.querySelector(".info-imc");
-var imc = peso / (altura * altura);
+var tdImc = pacientes[1].querySelector(".info-imc");
 
-tdImc.textContent = imc;
-if (peso < 0) {
-  tdPeso.textContent = "Peso inválido!"
+
+var pesoEhValido = true;
+var alturaEhValida = true;
+
+
+
+if (peso < 0 || peso > 600) {
+  tdImc.textContent = "Peso inválido!"
+  pesoEhValido = false;
 }
-tdImc.textContent = imc;
+
+
+if (altura < 0 || altura > 2.80) {
+  tdAltura.textContent = "Altura Inválida"
+  alturaEhValida = false;
+}
+
+if (pesoEhValido && alturaEhValida) {
+  var imc = peso / (altura * altura);
+  tdImc.textContent = imc;
+}
+}
+
+
