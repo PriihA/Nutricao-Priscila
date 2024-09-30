@@ -8,7 +8,7 @@ var pacientes = document.querySelectorAll(".paciente");
 
 for(var i=0; i<5; i++){
   console.log(pacientes[1]);
-  
+
 var tdPeso = pacientes[i].querySelector(".info-peso");
 
 var peso = tdPeso.textContent;
@@ -31,6 +31,7 @@ var alturaEhValida = true;
 if (peso < 0 || peso > 600) {
   tdImc.textContent = "Peso inválido!"
   pesoEhValido = false;
+  pacientes[i].style.color = "red";
 }
 
 
