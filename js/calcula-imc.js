@@ -5,7 +5,7 @@ var pacientes = document.querySelectorAll('.paciente');
 
 for (var i = 0; i < 5; i++) {
     console.log(pacientes[i])
-    
+
     var tdPeso = pacientes[i].querySelector('.info-peso');
     var peso = tdPeso.textContent;
 
@@ -28,7 +28,7 @@ for (var i = 0; i < 5; i++) {
         alturaValida = false;
         pacientes[i].classList.add('dado-invalido');
     }
-    
+
     if (pesoValido && alturaValida) {
         var imc = calculaImc(peso, altura);
         tdImc.textContent = imc;
