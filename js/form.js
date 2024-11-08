@@ -1,89 +1,47 @@
-var botaoAdicionar = document.querySelector('#adicionar-paciente');
-botaoAdicionar.addEventListener('click', function (event) {
-    event.preventDefault();
+var titulo = document.querySelector('.titulo');
+titulo.textContent = "Nícolas Nutrição";
 
-    var form = document.querySelector('#form-adiciona');
+var pacientes = document.querySelectorAll('.paciente');
 
-  var paciente = obtemPacienteDoFormulario(form);
+for (var i = 0; i < pacientes.length; i++) {  // Corrigido para percorrer todos os pacientes
+  console.log(pacientes[i]);
 
+  var tdPeso = pacientes[i].querySelector('.info-peso');
+  var peso = parseFloat(tdPeso.textContent); // Conversão para número
 
+  var tdAltura = pacientes[i].querySelector('.info-altura');
+  var altura = parseFloat(tdAltura.textContent); // Conversão para número
 
-var pacienteTr = montaTr(pacienteTr);
+  var tdImc = pacientes[i].querySelector('.info-imc');
 
-var erros = validaPaciente(paciente);
+  var pesoValido = validaPeso(peso);
+  var alturaValida = validaAltura(altura);
 
-if (erro.length > 0){
-exibeErros(erros);
-  return;
-}
-    
+  if (!pesoValido) {
+    tdImc.textContent = 'Peso inválido';
+    pacientes[i].classList.add('dado-invalido');
+  }
 
-    var tabela = document.querySelector('#tabela-pacientes');
-    tabela.appendChild(pacienteTr);
-    
-    form.reset();
-});
+  if (!alturaValida) {
+    tdImc.textContent = 'Altura inválida';
+    pacientes[i].classList.add('dado-invalido');
+  }
 
-
-function exibeErros(erros){
-  var ul = document.querySelector("#mensagens-erro");
-  erros.forEach(function(erro){
-    var li = document.createElement("li");
-    li.textContent = erro;
-    ul.appendChild(li);
-  });
-}
-
-function obtemPacienteDoFormulario(form){
-
-var paciente = {
- nome : form.nome.value,
- altura : form.altura.value,
- peso : form.peso.value,
- gordura : form.gordura.value,
- imc: calculaImc(form.peso.value, form.altura.value)
-};
-
-return paciente;
+  if (pesoValido && alturaValida) {
+    var imc = calculaImc(peso, altura);
+    tdImc.textContent = imc;
+  }
 }
 
-function montaTr(paciente){
-  
-  var pacienteTr = document.createElement("tr");
-  pacienteTr.classList.add("paciente");
-  
-
-
-
-pesoTd.textContent = paciente.peso;
-alturaTd.textContent = paciente.altura;
-gorduraTd.textContent = paciente.gordura;
-imcTd.textContent = calculaImc(paciente.peso, paciente.altura);
-
-pacienteTr.appendChild(montaTd(paciente.nome , "info-nome"));
-pacienteTr.appendChild(montaTd(paciente.peso , "info-peso"));
-pacienteTr.appendChild(montaTd(paciente.altura , "info-altura"));
-pacienteTr.appendChild(montaTd(paciente.gordura , "info-gordura"));
-pacienteTr.appendChild(montaTd(paciente.imc , "info-imc"));
-
-return pacienteTr;
+function calculaImc(peso, altura) {
+  var imc = peso / (altura * altura);
+  return imc.toFixed(2);
 }
 
-
-
-function montaTd(dado, classe){
-  var td = documen.createElement("td");
-  td.textContent = dado;
-  td.classList.add(classe);
-  
-  return td;
+function validaPeso(peso) {
+  return peso > 0 && peso < 600;
 }
 
-function validaPaciente(paciente){
-var erros = [];
-
-if (!validaPeso(paciente.peso)){
-  erros.push("Peso inválido!")
-}
-return erros;
+function validaAltura(altura) {
+  return altura > 0 && altura < 2.80;
 }
