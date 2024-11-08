@@ -1,29 +1,31 @@
 var titulo = document.querySelector('.titulo');
-titulo.textContent = "Nícolas Nutrição";
+titulo.textContent = "Priscila Nutrição";
 
 var pacientes = document.querySelectorAll('.paciente');
 
-for (var i = 0; i < pacientes.length; i++) {  // Corrigido para percorrer todos os pacientes
-  console.log(pacientes[i]);
+for (var i = 0; i < 5; i++) {
+  console.log(pacientes[i])
 
   var tdPeso = pacientes[i].querySelector('.info-peso');
-  var peso = parseFloat(tdPeso.textContent); // Conversão para número
+  var peso = tdPeso.textContent;
 
   var tdAltura = pacientes[i].querySelector('.info-altura');
-  var altura = parseFloat(tdAltura.textContent); // Conversão para número
+  var altura = tdAltura.textContent;
 
   var tdImc = pacientes[i].querySelector('.info-imc');
 
   var pesoValido = validaPeso(peso);
   var alturaValida = validaAltura(altura);
 
-  if (!pesoValido) {
+  if (peso < 0 || peso > 600) {
     tdImc.textContent = 'Peso inválido';
+    pesoValido = false;
     pacientes[i].classList.add('dado-invalido');
   }
 
-  if (!alturaValida) {
+  if (altura < 0 || altura > 2.80) {
     tdImc.textContent = 'Altura inválida';
+    alturaValida = false;
     pacientes[i].classList.add('dado-invalido');
   }
 
@@ -34,14 +36,25 @@ for (var i = 0; i < pacientes.length; i++) {  // Corrigido para percorrer todos 
 }
 
 function calculaImc(peso, altura) {
-  var imc = peso / (altura * altura);
+  var imc = 0;
+  imc = peso / (altura * altura);
   return imc.toFixed(2);
 }
 
-function validaPeso(peso) {
-  return peso > 0 && peso < 600;
+
+function validaPeso(peso){
+  if (peso > 0 && peso < 600){
+    return true;
+  } else{
+    return false;
+  }
 }
 
-function validaAltura(altura) {
-  return altura > 0 && altura < 2.80;
+
+function validaAltura(altura){
+  if (altura > 0 && altura < 2.80){
+    return true;
+  } else{
+    return false;
+  }
 }
